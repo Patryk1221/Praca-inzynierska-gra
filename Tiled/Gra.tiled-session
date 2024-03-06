@@ -1,0 +1,49 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "level-1.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "": {
+            "scaleInDock": 1,
+            "scaleInEditor": 2
+        },
+        "level-1.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 3,
+            "viewCenter": {
+                "x": 744,
+                "y": 447
+            }
+        },
+        "level-1.tmx#clouds": {
+            "scaleInDock": 0.75
+        },
+        "level-1.tmx#world-1": {
+            "scaleInDock": 1,
+            "scaleInEditor": 2
+        }
+    },
+    "last.exportedFilePath": "C:/FOLDER/New folder/Praca inżynierska/Gra/assets/tilemaps",
+    "last.imagePath": "C:/FOLDER/New folder/Praca inżynierska/Gra/assets/tilesets",
+    "map.height": 14,
+    "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
+    "map.lastUsedFormat": "tmx",
+    "map.layerDataFormat": null,
+    "map.width": 32,
+    "openFiles": [
+        "level-1.tmx"
+    ],
+    "project": "Gra.tiled-project",
+    "property.type": "bool",
+    "recentFiles": [
+        "level-1.tmx"
+    ],
+    "tileset.embedInMap": true,
+    "tileset.margin": 0,
+    "tileset.spacing": 0
+}
