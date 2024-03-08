@@ -16,6 +16,11 @@ class Game extends Phaser.Scene {
       margin: 1,
       spacing: 2,
     });
+    this.load.spritesheet('gems-sheet', 'assets/tilesets/gems.png', {
+      frameWidth: 32,
+      frameHeight: 32,
+      margin: 5,
+    });
     this.load.image('clouds-sheet', 'assets/tilesets/clouds.png');
 
 
@@ -57,9 +62,12 @@ class Game extends Phaser.Scene {
 
     this.addMap();
 
+    this.addGems();
+
     this.addHero();
 
     this.setCamera();
+    
   }
 
   createAnimations() {
@@ -116,10 +124,20 @@ class Game extends Phaser.Scene {
     const spikesCollider = this.physics.add.overlap(this.hero, this.spikesGroup, () => {
       this.hero.killHero();
     });
+
+    const gemsCollider = this.physics.add.overlap(this.hero, this.gemsGroup, (hero, gem) => {
+      this.gemsGroup.remove(gem, true, true);
+      let children = this.gemsGroup.getChildren();
+
+      if(children.length == 0) {
+        this.hero.killHero();
+      }
+    });
     
     this.hero.on('heroDied', () => {
       groundCollider.destroy();
       spikesCollider.destroy();
+      gemsCollider.destroy();
       this.hero.body.setCollideWorldBounds(false);
       this.cameras.main.stopFollow();
     })
@@ -151,7 +169,6 @@ class Game extends Phaser.Scene {
       spike.setSize(s.width-10, s.height-8);
       spike.setOffset(5, 8);
     })
-
     
     this.map.createStaticLayer('Foreground', groundTiles);
 
@@ -159,11 +176,27 @@ class Game extends Phaser.Scene {
     // this.groundLayer.renderDebug(graphicDebug);
   }
 
+  addGems() {
+    const gemsTiles = this.map.addTilesetImage('gems', 'gems-sheet');
+
+    let gems = this.map.getObjectLayer('Gems').objects;
+    this.gemsGroup = this.physics.add.group({immovable: true, allowGravity: false});
+
+    gems.forEach(s => {
+      let spike = this.gemsGroup.create(s.x, s.y, 'gems-sheet', s.gid - 1);
+      spike.setOrigin(0, 1);
+      spike.setSize(s.width-10, s.height-8);
+      spike.setOffset(5, 8);
+    })
+  }
+
   update(time, delta) {
     const cameraBottomPosition = this.cameras.main.getWorldPoint(0, this.cameras.main.height).y;
 
     if(this.hero.isHeroDead() && this.hero.getBounds().top > cameraBottomPosition+100) {
       this.hero.destroy();
+      this.gemsGroup.destroy(true, true);
+      this.addGems();
       this.addHero();
     }
   }
