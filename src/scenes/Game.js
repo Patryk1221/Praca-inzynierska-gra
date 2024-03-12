@@ -68,6 +68,7 @@ class Game extends Phaser.Scene {
 
     this.setCamera();
     
+    this.addTimer();
   }
 
   createAnimations() {
@@ -190,14 +191,31 @@ class Game extends Phaser.Scene {
     })
   }
 
+  addTimer() {
+    this.startTime = this.time.now;
+    this.elapsedTimeText = this.add.text(10, 10, 'Czas: 0', {fontSize: '16px', fill: '#ffffff', stroke: "#000", strokeThickness: 3 });
+    this.elapsedTimeText.setScrollFactor(0);
+  }
+
+  updateTimer() {
+    let elapsedTime = this.time.now - this.startTime;
+    elapsedTime /= 1000;
+    let minutes = Math.floor(elapsedTime / 60);
+    let seconds = Math.floor(elapsedTime - (minutes * 60)).toString();
+    if(seconds.length == 1) seconds = '0' + seconds;
+    this.elapsedTimeText.setText(`Czas: ${minutes}:${seconds}`);
+  }
+
   update(time, delta) {
     const cameraBottomPosition = this.cameras.main.getWorldPoint(0, this.cameras.main.height).y;
+    this.updateTimer();
 
     if(this.hero.isHeroDead() && this.hero.getBounds().top > cameraBottomPosition+100) {
       this.hero.destroy();
       this.gemsGroup.destroy(true, true);
       this.addGems();
       this.addHero();
+      this.startTime = this.time.now;
     }
   }
 }
