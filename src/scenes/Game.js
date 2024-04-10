@@ -152,7 +152,6 @@ class Game extends Phaser.Scene {
     const backgroundLayer = this.map.createStaticLayer('Background', backgroundTiles);
     backgroundLayer.setScrollFactor(0.5);
 
-    // ground
     this.groundLayer = this.map.createDynamicLayer('Ground', groundTiles);
     this.groundLayer.setCollisionByProperty({ collides: true, }, true);
 
@@ -184,10 +183,10 @@ class Game extends Phaser.Scene {
     this.gemsGroup = this.physics.add.group({immovable: true, allowGravity: false});
 
     gems.forEach(s => {
-      let spike = this.gemsGroup.create(s.x, s.y, 'gems-sheet', s.gid - 1);
-      spike.setOrigin(0, 1);
-      spike.setSize(s.width-10, s.height-8);
-      spike.setOffset(5, 8);
+      let gem = this.gemsGroup.create(s.x, s.y, 'gems-sheet', s.gid - 1);
+      gem.setOrigin(0, 1);
+      gem.setSize(s.width-10, s.height-8);
+      gem.setOffset(5, 8);
     })
   }
 
