@@ -73,7 +73,7 @@ class Hero extends Phaser.GameObjects.Sprite {
         { name: 'jump', from: 'standing', to: 'jumping' },
         { name: 'flip', from: 'jumping', to: 'flipping' },
         { name: 'fall', from: 'standing', to: 'falling' },
-        { name: 'touchdown', from: ['jumping', 'flipping', 'falling'], to: 'standing' },
+        { name: 'touchground', from: ['jumping', 'flipping', 'falling'], to: 'standing' },
         { name: 'die', from: ['jumping', 'flipping', 'falling', 'standing'], to: 'dead' },
       ],
       methods: {
@@ -102,7 +102,7 @@ class Hero extends Phaser.GameObjects.Sprite {
       fall: () => {
         return !this.body.onFloor();
       },
-      touchdown: () => {
+      touchground: () => {
         return this.body.onFloor();
       },
     }

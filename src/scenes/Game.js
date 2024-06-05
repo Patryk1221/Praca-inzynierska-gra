@@ -185,7 +185,7 @@ class Game extends Phaser.Scene {
     gems.forEach(s => {
       let gem = this.gemsGroup.create(s.x, s.y, 'gems-sheet', s.gid - 1);
       gem.setOrigin(0, 1);
-      gem.setSize(s.width-10, s.height-8);
+      gem.setSize(s.width-10, s.height-12);
       gem.setOffset(5, 8);
     })
   }
